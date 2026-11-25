@@ -306,7 +306,7 @@ function lineChart(canvas, series, opt = {}) {
   canvas.width = W*dpr; canvas.height = H*dpr;
   const c = canvas.getContext("2d"); c.scale(dpr, dpr); c.clearRect(0,0,W,H);
   const pts = series.flatMap((s) => s.pts);
-  if (pts.length < 2) { c.fillStyle = "#a8979f"; c.font = "13px Inter"; c.fillText(opt.empty || "No data yet", 8, H/2); return; }
+  if (pts.length < 2) { c.fillStyle = "#a8979f"; c.font = "13px Inter, system-ui, sans-serif"; c.fillText(opt.empty || "No data yet", 8, H/2); return; }
   const x0 = opt.x0 ?? Math.min(...pts.map((p) => p[0])), x1 = opt.x1 ?? Math.max(...pts.map((p) => p[0]));
   let y0 = Math.min(...pts.map((p) => p[1])), y1 = Math.max(...pts.map((p) => p[1]));
   const pad = Math.max(5, (y1 - y0) * .15); y0 = Math.floor((y0 - pad)/10)*10; y1 = Math.ceil((y1 + pad)/10)*10;
@@ -317,7 +317,7 @@ function lineChart(canvas, series, opt = {}) {
     const a = Math.max(y0, z.lo*cfg.maxHr), b = Math.min(y1, z.hi*cfg.maxHr);
     if (b > a) { c.fillStyle = zoneColor(i) + "14"; c.fillRect(L, Y(b), W-L-R, Y(a)-Y(b)); }
   });
-  c.strokeStyle = "#2e252a"; c.fillStyle = "#a8979f"; c.font = "11px Inter"; c.lineWidth = 1;
+  c.strokeStyle = "#2e252a"; c.fillStyle = "#a8979f"; c.font = "11px Inter, system-ui, sans-serif"; c.lineWidth = 1;
   const step = (y1 - y0) > 60 ? 20 : 10;
   for (let y = y0; y <= y1; y += step) { c.beginPath(); c.moveTo(L, Y(y)); c.lineTo(W-R, Y(y)); c.stroke(); c.fillText(y, 4, Y(y)+4); }
   if (opt.xLabels) opt.xLabels.forEach(([x, t]) => { c.fillText(t, Math.min(X(x) - 10, W - 40), H - 4); });
